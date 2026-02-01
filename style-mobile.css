@@ -12,7 +12,7 @@ body {
   color: #000;
 }
 
-/* ================= MOBILE HEADER ================= */
+/* ================= HEADER ================= */
 #mobileHeader {
   height: 56px;
   display: flex;
@@ -27,7 +27,7 @@ body {
   font-weight: 600;
 }
 
-/* SEARCH */
+/* ================= SEARCH ================= */
 #mobileSearch {
   position: absolute;
   left: 50%;
@@ -69,13 +69,15 @@ body {
 /* ================= SONG LIST ================= */
 #songList {
   padding: 12px;
+  padding-bottom: 90px; /* space for bottom player */
 }
 
 .songRow {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 0;
+  padding: 12px 0;
+  pointer-events: auto;
 }
 
 .songImg {
@@ -87,7 +89,7 @@ body {
   font-size: 14px;
 }
 
-/* ================= MOBILE BOTTOM PLAYER ================= */
+/* ================= BOTTOM PLAYER ================= */
 #bottomBar {
   position: fixed;
   bottom: 0;
