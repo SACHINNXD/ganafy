@@ -3,69 +3,91 @@
 <head>
   <meta charset="UTF-8">
   <title>ganafy</title>
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="stylesheet" href="style-mobile.css">
 </head>
 <body>
 
-  <!-- MOBILE HEADER -->
-  <header id="mobileHeader">
-    <div id="mobileLogo">ganafy</div>
+<!-- ================= MOBILE HEADER ================= -->
+<header id="mobileHeader">
+  <div id="mobileLogo">ganafy</div>
 
-    <div id="mobileSearch">
-      <div class="searchIcon"></div>
-      <input type="text" placeholder="Search">
-    </div>
-  </header>
+  <div id="mobileSearch">
+    <div class="searchIcon"></div>
+    <input type="text" placeholder="Search">
+  </div>
+</header>
 
-  <!-- SONG LIST -->
-  <div id="songList">
+<!-- ================= MOBILE SONG LIST ================= -->
+<main id="songList">
 
-    <div class="songRow"
-      data-audio="music.mp3"
-      data-title="MXRCVRY - AYUDA"
-      data-image="ayuda.jpg">
+  <div class="songRow"
+       data-index="0"
+       data-audio="music.mp3"
+       data-title="MXRCVRY - AYUDA"
+       data-image="ayuda.jpg">
 
-      <img src="ayuda.jpg" class="songImg">
-      <div class="songText">MXRCVRY - AYUDA</div>
-      <button class="playBtn">▶</button>
-    </div>
-
-    <div class="songRow"
-      data-audio="Tera Hone Laga Hoon-(Mr-Jat.in).mp3"
-      data-title="Tera Hone Laga Hoon"
-      data-image="1425x1425bb.jpg">
-
-      <img src="1425x1425bb.jpg" class="songImg">
-      <div class="songText">Tera Hone Laga Hoon</div>
-      <button class="playBtn">▶</button>
-    </div>
-
+    <img src="ayuda.jpg" class="songImg">
+    <div class="songText">MXRCVRY - AYUDA</div>
   </div>
 
-  <audio id="audio"></audio>
+  <div class="songRow"
+       data-index="1"
+       data-audio="Tera Hone Laga Hoon-(Mr-Jat.in).mp3"
+       data-title="Tera Hone Laga Hoon"
+       data-image="1425x1425bb.jpg">
 
-  <!-- BOTTOM POPUP -->
-  <div id="bottomBar">
-
-    <div id="bottomTop">
-      <button id="closePlayer">✕</button>
-    </div>
-
-    <div id="bottomContent">
-      <img id="bottomAlbum">
-
-      <div id="bottomInfo">
-        <div id="bottomTrack"></div>
-        <div id="timeDisplay">0:00 / 0:00</div>
-        <input type="range" id="progress" min="0" max="100" value="0">
-      </div>
-
-      <button id="bottomPlay">▶</button>
-    </div>
-
+    <img src="1425x1425bb.jpg" class="songImg">
+    <div class="songText">Tera Hone Laga Hoon</div>
   </div>
 
-  <script src="script.js"></script>
+</main>
+
+<!-- ================= AUDIO ================= -->
+<audio id="audio"></audio>
+
+<!-- ================= MOBILE BOTTOM PLAYER ================= -->
+<div id="bottomBar">
+
+  <div class="player-left">
+    <img id="bottomAlbum">
+    <div id="bottomTrack"></div>
+  </div>
+
+  <div class="player-right">
+    <button id="bottomPlay">▶</button>
+    <button id="miniBtn">▢</button>
+    <button id="fullscreenBtn">⛶</button>
+  </div>
+
+</div>
+
+<!-- ================= MINI PLAYER (MOBILE) ================= -->
+<div id="miniPlayer">
+  <div class="miniCover">
+    <img id="miniAlbum">
+    <button id="miniPlay">▶</button>
+  </div>
+  <div id="miniTitle"></div>
+</div>
+
+<!-- ================= FULLSCREEN PLAYER (MOBILE) ================= -->
+<div id="fullscreenPlayer">
+  <button id="exitFullscreen">✕</button>
+
+  <img id="fsAlbum">
+  <div id="fsTitle"></div>
+
+  <div class="fsControls">
+    <button id="fsPrev">⏮</button>
+    <button id="fsPlay">▶</button>
+    <button id="fsNext">⏭</button>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
