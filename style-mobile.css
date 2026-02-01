@@ -9,7 +9,7 @@ body {
   background: #ffffff;
 }
 
-/* Header */
+/* MOBILE HEADER */
 #mobileHeader {
   height: 56px;
   display: flex;
@@ -23,7 +23,6 @@ body {
   font-weight: 600;
 }
 
-/* Centered search bar */
 #mobileSearch {
   position: absolute;
   left: 50%;
@@ -42,54 +41,37 @@ body {
   width: 100%;
 }
 
-/* Custom icon */
-.searchIcon {
-  width: 14px;
-  height: 14px;
-  border: 2px solid #000;
-  border-radius: 50%;
-  position: relative;
+/* SONG LIST */
+#songList {
+  margin-top: 12px;
 }
 
-.searchIcon::after {
-  content: "";
-  position: absolute;
-  width: 6px;
-  height: 2px;
-  background: #000;
-  right: -5px;
-  bottom: -2px;
-  transform: rotate(45deg);
-}
-
-/* Song row */
-#mobileSongRow {
-  margin: 12px;
+.songRow {
   display: flex;
   align-items: center;
   gap: 10px;
+  padding: 12px;
 }
 
-#mobileAlbum {
+.songImg {
   width: 44px;
   height: 44px;
 }
 
-#mobileTitle {
-  font-size: 13px;
+.songText {
   flex: 1;
+  font-size: 13px;
 }
 
-#playButton {
+.playBtn {
   width: 28px;
   height: 28px;
-  font-size: 14px;
   border-radius: 50%;
   border: 1px solid #000;
   background: #fff;
 }
 
-/* Bottom popup */
+/* BOTTOM PLAYER */
 #bottomBar {
   position: fixed;
   bottom: 0;
