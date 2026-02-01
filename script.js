@@ -1,4 +1,11 @@
 const audio = document.getElementById("audio");
+const songRows = document.querySelectorAll(".songRow");
+
+const songs = [...songRows].map(r => ({
+  src: r.dataset.audio,
+  title: r.dataset.title,
+  img: r.dataset.image
+}));
 
 const bottomBar = document.getElementById("bottomBar");
 const bottomAlbum = document.getElementById("bottomAlbum");
@@ -13,123 +20,79 @@ const nextBtn = document.getElementById("next");
 const prevBtn = document.getElementById("prev");
 const shuffleBtn = document.getElementById("shuffle");
 const repeatBtn = document.getElementById("repeat");
-const fullscreenBtn = document.getElementById("fullscreen");
 const miniBtn = document.getElementById("mini");
+const fullscreenBtn = document.getElementById("fullscreen");
 const closeBtn = document.getElementById("closePlayer");
 
-const songRows = document.querySelectorAll(".songRow");
-
-const songs = Array.from(songRows).map(row => ({
-  src: row.dataset.audio,
-  title: row.dataset.title,
-  img: row.dataset.image
-}));
-
-let currentIndex = 0;
-let shuffle = false;
-let repeat = false;
-
-/* FORMAT TIME */
-function format(t) {
-  const m = Math.floor(t / 60);
-  const s = Math.floor(t % 60);
-  return `${m}:${s.toString().padStart(2,"0")}`;
-}
-
-/* LOAD SONG */
-function loadSong(index) {
-  const song = songs[index];
-  audio.src = song.src;
-  bottomAlbum.src = song.img;
-  bottomTrack.textContent = song.title;
-  audio.play();
-  bottomBar.style.display = "flex";
-
-  localStorage.setItem("ganafy_song_index", index);
-  localStorage.removeItem("ganafy_closed");
-}
-
-/* SONG CLICK */
-songRows.forEach(row => {
-  row.addEventListener("click", () => {
-    currentIndex = Number(row.dataset.index);
-    loadSong(currentIndex);
-  });
-});
-
-/* PLAY / PAUSE */
-bottomPlay.onclick = () => {
-  audio.paused ? audio.play() : audio.pause();
-};
-
-audio.onplay = () => bottomPlay.textContent = "❚❚";
-audio.onpause = () => bottomPlay.textContent = "▶";
-
-/* NEXT / PREV */
-nextBtn.onclick = () => {
-  currentIndex = shuffle
-    ? Math.floor(Math.random() * songs.length)
-    : (currentIndex + 1) % songs.length;
-  loadSong(currentIndex);
-};
-
-prevBtn.onclick = () => {
-  currentIndex = (currentIndex - 1 + songs.length) % songs.length;
-  loadSong(currentIndex);
-};
-
-/* SHUFFLE / REPEAT */
-shuffleBtn.onclick = () => shuffle = !shuffle;
-repeatBtn.onclick = () => repeat = !repeat;
-
-/* TIME UPDATE */
-audio.ontimeupdate = () => {
-  if (!audio.duration) return;
-
-  progress.value = (audio.currentTime / audio.duration) * 100;
-  currentTimeEl.textContent = format(audio.currentTime);
-  totalTimeEl.textContent = format(audio.duration);
-
-  localStorage.setItem("ganafy_time", audio.currentTime);
-};
-
-/* SEEK */
-progress.oninput = () => {
-  audio.currentTime = (progress.value / 100) * audio.duration;
-};
-
-/* END */
-audio.onended = () => {
-  repeat ? loadSong(currentIndex) : nextBtn.click();
-};
-
-/* MINI PLAYER */
-miniBtn.onclick = () => {
-  bottomBar.style.height = "50px";
-};
+/* MINI */
+const miniPlayer = document.getElementById("miniPlayer");
+const miniAlbum = document.getElementById("miniAlbum");
+const miniTitle = document.getElementById("miniTitle");
+const miniPlay = document.getElementById("miniPlay");
 
 /* FULLSCREEN */
-fullscreenBtn.onclick = () => {
-  document.documentElement.requestFullscreen();
+const fsPlayer = document.getElementById("fullscreenPlayer");
+const fsAlbum = document.getElementById("fsAlbum");
+const fsTitle = document.getElementById("fsTitle");
+const fsPlay = document.getElementById("fsPlay");
+const fsNext = document.getElementById("fsNext");
+const fsPrev = document.getElementById("fsPrev");
+const exitFs = document.getElementById("exitFullscreen");
+
+let index = 0, shuffle=false, repeat=false;
+
+/* LOAD SONG */
+function load(i){
+  index=i;
+  audio.src=songs[i].src;
+  bottomAlbum.src=miniAlbum.src=fsAlbum.src=songs[i].img;
+  bottomTrack.textContent=miniTitle.textContent=fsTitle.textContent=songs[i].title;
+  audio.play();
+  bottomBar.style.display="flex";
+}
+
+/* CLICK SONG */
+songRows.forEach(r=>r.onclick=()=>load(+r.dataset.index));
+
+/* PLAY/PAUSE */
+bottomPlay.onclick=miniPlay.onclick=fsPlay.onclick=
+  ()=>audio.paused?audio.play():audio.pause();
+
+audio.onplay=()=>bottomPlay.textContent=miniPlay.textContent=fsPlay.textContent="❚❚";
+audio.onpause=()=>bottomPlay.textContent=miniPlay.textContent=fsPlay.textContent="▶";
+
+/* NEXT / PREV */
+nextBtn.onclick=fsNext.onclick=()=>load(shuffle?Math.floor(Math.random()*songs.length):(index+1)%songs.length);
+prevBtn.onclick=fsPrev.onclick=()=>load((index-1+songs.length)%songs.length);
+
+shuffleBtn.onclick=()=>shuffle=!shuffle;
+repeatBtn.onclick=()=>repeat=!repeat;
+
+/* TIME */
+audio.ontimeupdate=()=>{
+  if(!audio.duration) return;
+  progress.value=(audio.currentTime/audio.duration)*100;
+  currentTimeEl.textContent=format(audio.currentTime);
+  totalTimeEl.textContent=format(audio.duration);
+};
+progress.oninput=()=>audio.currentTime=(progress.value/100)*audio.duration;
+audio.onended=()=>repeat?load(index):nextBtn.click();
+
+/* MINI TOGGLE */
+miniBtn.onclick=()=>{
+  const on=miniPlayer.style.display==="flex";
+  miniPlayer.style.display=on?"none":"flex";
+  bottomBar.style.display=on?"flex":"none";
 };
 
-/* CLOSE */
-closeBtn.onclick = () => {
-  audio.pause();
-  bottomBar.style.display = "none";
-  localStorage.setItem("ganafy_closed", "true");
-};
+/* FULLSCREEN TOGGLE */
+fullscreenBtn.onclick=()=>fsPlayer.style.display="flex";
+exitFs.onclick=()=>fsPlayer.style.display="none";
 
-/* RESTORE */
-window.onload = () => {
-  if (localStorage.getItem("ganafy_closed") === "true") return;
+/* DRAG MINI */
+let drag=false,dx,dy;
+miniPlayer.onmousedown=e=>{drag=true;dx=e.offsetX;dy=e.offsetY;}
+document.onmousemove=e=>drag&&(miniPlayer.style.left=e.pageX-dx+"px",miniPlayer.style.top=e.pageY-dy+"px");
+document.onmouseup=()=>drag=false;
 
-  const idx = localStorage.getItem("ganafy_song_index");
-  const time = localStorage.getItem("ganafy_time");
-
-  if (idx !== null) {
-    currentIndex = Number(idx);
-    loadSong(currentIndex);
-    if (time) audio.currentTime = Number(time);
-  }
-};
+function format(t){return Math.floor(t/60)+":"+String(Math.floor(t%60)).padStart(2,"0");}
