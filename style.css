@@ -1,33 +1,87 @@
-/* RESET */
+/* ================= RESET ================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* ================= BODY ================= */
 body {
   font-family: Arial, Helvetica, sans-serif;
   background: #ffffff;
+  color: #000;
 }
 
-/* SONG LIST */
+/* ================= HEADER ================= */
+#header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  position: relative;
+  border-bottom: 1px solid #eee;
+}
+
+#logo {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* ================= SEARCH ================= */
+#searchBar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #000;
+  padding: 6px 10px;
+}
+
+#searchBar input {
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.searchIcon {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  position: relative;
+}
+
+.searchIcon::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 2px;
+  background: #000;
+  right: -5px;
+  bottom: -2px;
+  transform: rotate(45deg);
+}
+
+/* ================= SONG LIST ================= */
 #songList {
-  margin: 16px;
+  padding: 16px;
 }
 
 .songRow {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 8px;
+  padding: 10px;
   border-radius: 6px;
   cursor: pointer;
-  transition: transform .15s, box-shadow .15s;
+  transition: background 0.15s ease;
 }
 
 .songRow:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 14px rgba(0,0,0,.3);
+  background: #f5f5f5;
 }
 
 .songImg {
@@ -37,7 +91,15 @@ body {
 
 .songText {
   flex: 1;
-  font-size: 13px;
+  font-size: 14px;
+}
+
+.playBtn {
+  border: 1px solid #000;
+  background: #fff;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
 }
 
 /* ================= BOTTOM PLAYER ================= */
@@ -95,28 +157,25 @@ body {
   flex: 1;
 }
 
-/* ===== VOLUME CONTROL (ADDED) ===== */
+/* ================= VOLUME ================= */
 .volumeControl {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-.volumeIcon {
-  font-size: 14px;
-}
-
 #volumeSlider {
   width: 80px;
 }
 
-/* MINI PLAYER */
+/* ================= MINI PLAYER ================= */
 #miniPlayer {
   position: fixed;
   bottom: 120px;
   right: 24px;
-  width: 280px;
+  width: 260px;
   background: #181818;
+  color: #fff;
   border-radius: 14px;
   padding: 12px;
   display: none;
@@ -140,19 +199,18 @@ body {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: rgba(0,0,0,.6);
-  color: #fff;
   border: none;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
   font-size: 24px;
 }
 
 #miniTitle {
   margin-top: 10px;
-  color: #fff;
   font-size: 14px;
 }
 
-/* FULLSCREEN */
+/* ================= FULLSCREEN ================= */
 #fullscreenPlayer {
   position: fixed;
   inset: 0;
