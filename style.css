@@ -5,61 +5,9 @@
   box-sizing: border-box;
 }
 
-/* BODY */
 body {
   font-family: Arial, Helvetica, sans-serif;
   background: #ffffff;
-}
-
-/* HEADER */
-#header {
-  height: 64px;
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-  position: relative;
-}
-
-#logo {
-  font-size: 22px;
-  font-weight: 600;
-}
-
-/* SEARCH */
-#searchBar {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 280px;
-  display: flex;
-  gap: 8px;
-  border: 1px solid #000;
-  padding: 6px 10px;
-}
-
-#searchBar input {
-  border: none;
-  outline: none;
-  width: 100%;
-}
-
-.searchIcon {
-  width: 14px;
-  height: 14px;
-  border: 2px solid #000;
-  border-radius: 50%;
-  position: relative;
-}
-
-.searchIcon::after {
-  content: "";
-  position: absolute;
-  width: 6px;
-  height: 2px;
-  background: #000;
-  right: -5px;
-  bottom: -2px;
-  transform: rotate(45deg);
 }
 
 /* SONG LIST */
@@ -92,7 +40,7 @@ body {
   font-size: 13px;
 }
 
-/* BOTTOM PLAYER */
+/* ================= BOTTOM PLAYER ================= */
 #bottomBar {
   position: fixed;
   bottom: 0;
@@ -145,6 +93,21 @@ body {
 
 #progress {
   flex: 1;
+}
+
+/* ===== VOLUME CONTROL (ADDED) ===== */
+.volumeControl {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.volumeIcon {
+  font-size: 14px;
+}
+
+#volumeSlider {
+  width: 80px;
 }
 
 /* MINI PLAYER */
