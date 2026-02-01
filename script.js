@@ -1,5 +1,4 @@
 const audio = document.getElementById("audio");
-
 const bottomBar = document.getElementById("bottomBar");
 const bottomAlbum = document.getElementById("bottomAlbum");
 const bottomTrack = document.getElementById("bottomTrack");
@@ -10,14 +9,13 @@ const timeDisplay = document.getElementById("timeDisplay");
 
 let currentSong = null;
 
-/* FORMAT TIME */
 function formatTime(sec) {
   const m = Math.floor(sec / 60);
   const s = Math.floor(sec % 60);
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-/* SONG CLICK */
+/* CLICK SONG */
 document.querySelectorAll(".songRow").forEach(row => {
   row.addEventListener("click", () => {
     const src = row.dataset.audio;
@@ -43,12 +41,12 @@ document.querySelectorAll(".songRow").forEach(row => {
   });
 });
 
-/* PLAY / PAUSE BUTTON */
+/* PLAY / PAUSE */
 bottomPlay.addEventListener("click", () => {
   audio.paused ? audio.play() : audio.pause();
 });
 
-/* SYNC UI */
+/* UI SYNC */
 audio.addEventListener("play", () => {
   bottomPlay.textContent = "❚❚";
 });
@@ -57,7 +55,7 @@ audio.addEventListener("pause", () => {
   bottomPlay.textContent = "▶";
 });
 
-/* PROGRESS + TIME */
+/* TIME + PROGRESS */
 audio.addEventListener("timeupdate", () => {
   if (!audio.duration) return;
 
@@ -73,7 +71,7 @@ progress.addEventListener("input", () => {
   audio.currentTime = (progress.value / 100) * audio.duration;
 });
 
-/* CLOSE PERMANENTLY */
+/* CLOSE */
 closePlayer.addEventListener("click", () => {
   audio.pause();
   audio.currentTime = 0;
@@ -83,7 +81,7 @@ closePlayer.addEventListener("click", () => {
   localStorage.removeItem("ganafy_time");
 });
 
-/* RESTORE ON LOAD */
+/* RESTORE */
 window.addEventListener("load", () => {
   if (localStorage.getItem("ganafy_closed") === "true") return;
 
