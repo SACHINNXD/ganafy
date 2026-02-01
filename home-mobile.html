@@ -8,39 +8,48 @@
 </head>
 <body>
 
-  <!-- Mobile header -->
   <header id="mobileHeader">
     <div id="mobileLogo">ganafy</div>
-
     <div id="mobileSearch">
       <div class="searchIcon"></div>
       <input type="text" placeholder="Search">
     </div>
   </header>
 
-  <!-- Mobile compact song row -->
-  <div id="mobileSongRow">
-    <img src="ayuda.jpg" id="mobileAlbum">
-    <div id="mobileTitle">MXRCVRY - AYUDA</div>
-    <button id="playButton">▶</button>
+  <div class="songList">
+
+    <div class="songRow"
+      data-audio="music-ayuda.mp3"
+      data-title="MXRCVRY - AYUDA"
+      data-image="ayuda.jpg">
+      <img src="ayuda.jpg">
+      <span>MXRCVRY - AYUDA</span>
+      <button class="playBtn">▶</button>
+    </div>
+
+    <div class="songRow"
+      data-audio="Tera Hone Laga Hoon-(Mr-Jat.in).mp3"
+      data-title="Tera Hone Laga Hoon"
+      data-image="1425x1425bb.jpg">
+      <img src="1425x1425bb.jpg">
+      <span>Tera Hone Laga Hoon</span>
+      <button class="playBtn">▶</button>
+    </div>
+
   </div>
 
-  <audio id="audio" src="music.mp3"></audio>
+  <audio id="audio"></audio>
 
-  <!-- Bottom popup -->
   <div id="bottomBar">
     <div id="bottomTop">
       <button id="closePlayer">✕</button>
     </div>
-
     <div id="bottomContent">
-      <img src="ayuda.jpg" id="bottomAlbum">
-
+      <img id="bottomAlbum">
       <div id="bottomInfo">
-        <div id="bottomTrack">MXRCVRY - AYUDA</div>
-        <input type="range" id="progress" min="0" max="100" value="0">
+        <div id="bottomTrack"></div>
+        <input type="range" id="progress" min="0" max="100">
       </div>
-
       <button id="bottomPlay">▶</button>
     </div>
   </div>
