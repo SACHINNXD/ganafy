@@ -1,12 +1,22 @@
 const audio = document.getElementById("audio");
+
+/* ================= SONG DATA ================= */
 const songRows = document.querySelectorAll(".songRow");
 
-const songs = [...songRows].map(r => ({
-  src: r.dataset.audio,
-  title: r.dataset.title,
-  img: r.dataset.image
-}));
+const songs = [];
+songRows.forEach(row => {
+  songs.push({
+    src: row.dataset.audio,
+    title: row.dataset.title,
+    img: row.dataset.image
+  });
+});
 
+let currentIndex = 0;
+let shuffleEnabled = false;
+let repeatEnabled = false;
+
+/* ================= BOTTOM PLAYER ELEMENTS ================= */
 const bottomBar = document.getElementById("bottomBar");
 const bottomAlbum = document.getElementById("bottomAlbum");
 const bottomTrack = document.getElementById("bottomTrack");
@@ -22,77 +32,160 @@ const shuffleBtn = document.getElementById("shuffle");
 const repeatBtn = document.getElementById("repeat");
 const miniBtn = document.getElementById("mini");
 const fullscreenBtn = document.getElementById("fullscreen");
-const closeBtn = document.getElementById("closePlayer");
 
-/* MINI */
+/* ================= MINI PLAYER ================= */
 const miniPlayer = document.getElementById("miniPlayer");
 const miniAlbum = document.getElementById("miniAlbum");
 const miniTitle = document.getElementById("miniTitle");
 const miniPlay = document.getElementById("miniPlay");
 
-/* FULLSCREEN */
-const fsPlayer = document.getElementById("fullscreenPlayer");
+/* ================= FULLSCREEN PLAYER ================= */
+const fullscreenPlayer = document.getElementById("fullscreenPlayer");
 const fsAlbum = document.getElementById("fsAlbum");
 const fsTitle = document.getElementById("fsTitle");
 const fsPlay = document.getElementById("fsPlay");
 const fsNext = document.getElementById("fsNext");
 const fsPrev = document.getElementById("fsPrev");
-const exitFs = document.getElementById("exitFullscreen");
+const exitFullscreen = document.getElementById("exitFullscreen");
 
-let index = 0, shuffle=false, repeat=false;
+/* ================= LOAD SONG ================= */
+function loadSong(index) {
+  const song = songs[index];
 
-/* LOAD SONG */
-function load(i){
-  index=i;
-  audio.src=songs[i].src;
-  bottomAlbum.src=miniAlbum.src=fsAlbum.src=songs[i].img;
-  bottomTrack.textContent=miniTitle.textContent=fsTitle.textContent=songs[i].title;
+  audio.src = song.src;
+  bottomAlbum.src = song.img;
+  miniAlbum.src = song.img;
+  fsAlbum.src = song.img;
+
+  bottomTrack.textContent = song.title;
+  miniTitle.textContent = song.title;
+  fsTitle.textContent = song.title;
+
   audio.play();
-  bottomBar.style.display="flex";
+  bottomBar.style.display = "flex";
 }
 
-/* CLICK SONG */
-songRows.forEach(r=>r.onclick=()=>load(+r.dataset.index));
+/* ================= SONG CLICK ================= */
+songRows.forEach(row => {
+  row.addEventListener("click", () => {
+    currentIndex = Number(row.dataset.index);
+    loadSong(currentIndex);
+  });
+});
 
-/* PLAY/PAUSE */
-bottomPlay.onclick=miniPlay.onclick=fsPlay.onclick=
-  ()=>audio.paused?audio.play():audio.pause();
+/* ================= PLAY / PAUSE ================= */
+function togglePlay() {
+  if (audio.paused) {
+    audio.play();
+  } else {
+    audio.pause();
+  }
+}
 
-audio.onplay=()=>bottomPlay.textContent=miniPlay.textContent=fsPlay.textContent="❚❚";
-audio.onpause=()=>bottomPlay.textContent=miniPlay.textContent=fsPlay.textContent="▶";
+bottomPlay.addEventListener("click", togglePlay);
+miniPlay.addEventListener("click", togglePlay);
+fsPlay.addEventListener("click", togglePlay);
 
-/* NEXT / PREV */
-nextBtn.onclick=fsNext.onclick=()=>load(shuffle?Math.floor(Math.random()*songs.length):(index+1)%songs.length);
-prevBtn.onclick=fsPrev.onclick=()=>load((index-1+songs.length)%songs.length);
+audio.addEventListener("play", () => {
+  bottomPlay.textContent = "❚❚";
+  miniPlay.textContent = "❚❚";
+  fsPlay.textContent = "❚❚";
+});
 
-shuffleBtn.onclick=()=>shuffle=!shuffle;
-repeatBtn.onclick=()=>repeat=!repeat;
+audio.addEventListener("pause", () => {
+  bottomPlay.textContent = "▶";
+  miniPlay.textContent = "▶";
+  fsPlay.textContent = "▶";
+});
 
-/* TIME */
-audio.ontimeupdate=()=>{
-  if(!audio.duration) return;
-  progress.value=(audio.currentTime/audio.duration)*100;
-  currentTimeEl.textContent=format(audio.currentTime);
-  totalTimeEl.textContent=format(audio.duration);
-};
-progress.oninput=()=>audio.currentTime=(progress.value/100)*audio.duration;
-audio.onended=()=>repeat?load(index):nextBtn.click();
+/* ================= NEXT / PREV ================= */
+nextBtn.addEventListener("click", () => {
+  if (shuffleEnabled) {
+    currentIndex = Math.floor(Math.random() * songs.length);
+  } else {
+    currentIndex = (currentIndex + 1) % songs.length;
+  }
+  loadSong(currentIndex);
+});
 
-/* MINI TOGGLE */
-miniBtn.onclick=()=>{
-  const on=miniPlayer.style.display==="flex";
-  miniPlayer.style.display=on?"none":"flex";
-  bottomBar.style.display=on?"flex":"none";
-};
+prevBtn.addEventListener("click", () => {
+  currentIndex = (currentIndex - 1 + songs.length) % songs.length;
+  loadSong(currentIndex);
+});
 
-/* FULLSCREEN TOGGLE */
-fullscreenBtn.onclick=()=>fsPlayer.style.display="flex";
-exitFs.onclick=()=>fsPlayer.style.display="none";
+shuffleBtn.addEventListener("click", () => {
+  shuffleEnabled = !shuffleEnabled;
+});
 
-/* DRAG MINI */
-let drag=false,dx,dy;
-miniPlayer.onmousedown=e=>{drag=true;dx=e.offsetX;dy=e.offsetY;}
-document.onmousemove=e=>drag&&(miniPlayer.style.left=e.pageX-dx+"px",miniPlayer.style.top=e.pageY-dy+"px");
-document.onmouseup=()=>drag=false;
+repeatBtn.addEventListener("click", () => {
+  repeatEnabled = !repeatEnabled;
+});
 
-function format(t){return Math.floor(t/60)+":"+String(Math.floor(t%60)).padStart(2,"0");}
+/* ================= TIME + SEEK ================= */
+audio.addEventListener("timeupdate", () => {
+  if (!audio.duration) return;
+
+  progress.value = (audio.currentTime / audio.duration) * 100;
+  currentTimeEl.textContent = formatTime(audio.currentTime);
+  totalTimeEl.textContent = formatTime(audio.duration);
+});
+
+progress.addEventListener("input", () => {
+  audio.currentTime = (progress.value / 100) * audio.duration;
+});
+
+audio.addEventListener("ended", () => {
+  if (repeatEnabled) {
+    loadSong(currentIndex);
+  } else {
+    nextBtn.click();
+  }
+});
+
+/* ================= MINI PLAYER ================= */
+miniBtn.addEventListener("click", () => {
+  if (miniPlayer.style.display === "flex") {
+    miniPlayer.style.display = "none";
+    bottomBar.style.display = "flex";
+  } else {
+    miniPlayer.style.display = "flex";
+    bottomBar.style.display = "none";
+  }
+});
+
+/* ================= FULLSCREEN ================= */
+fullscreenBtn.addEventListener("click", () => {
+  fullscreenPlayer.style.display = "flex";
+});
+
+exitFullscreen.addEventListener("click", () => {
+  fullscreenPlayer.style.display = "none";
+});
+
+/* ================= DRAG MINI ================= */
+let dragging = false;
+let offsetX = 0;
+let offsetY = 0;
+
+miniPlayer.addEventListener("mousedown", e => {
+  dragging = true;
+  offsetX = e.offsetX;
+  offsetY = e.offsetY;
+});
+
+document.addEventListener("mousemove", e => {
+  if (!dragging) return;
+  miniPlayer.style.left = e.pageX - offsetX + "px";
+  miniPlayer.style.top = e.pageY - offsetY + "px";
+});
+
+document.addEventListener("mouseup", () => {
+  dragging = false;
+});
+
+/* ================= UTILS ================= */
+function formatTime(seconds) {
+  const min = Math.floor(seconds / 60);
+  const sec = Math.floor(seconds % 60);
+  return min + ":" + String(sec).padStart(2, "0");
+}
