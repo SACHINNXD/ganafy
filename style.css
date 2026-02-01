@@ -21,17 +21,17 @@ html, body {
   color: #000000;
 }
 
-/* Player container */
+/* Player layout */
 #player {
   position: absolute;
   top: 64px;
   left: 16px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
 }
 
-/* Album thumbnail */
+/* Album image */
 #album {
   width: 120px;
   height: 120px;
@@ -41,9 +41,26 @@ html, body {
   background-color: #e0e0e0;
 }
 
+/* Controls container */
+#controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Track name */
+#trackName {
+  font-size: 16px;
+  font-weight: 500;
+  color: #000000;
+}
+
 /* Play button */
 #playButton {
-  padding: 10px 20px;
-  font-size: 16px;
+  width: 48px;
+  height: 48px;
+  font-size: 22px;
   cursor: pointer;
+  border: 1px solid #000;
+  background-color: #ffffff;
 }
