@@ -7,31 +7,30 @@
 html, body {
   width: 100%;
   height: 100%;
-  background-color: #ffffff;
+  background: #ffffff;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 /* Header */
 #header {
-  position: relative;
   height: 64px;
   display: flex;
   align-items: center;
   padding: 0 16px;
+  position: relative;
 }
 
-/* Logo */
 #logo {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
 }
 
-/* Centered short search bar */
+/* Center search bar */
 #searchBar {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: 320px;
+  width: 300px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -43,55 +42,64 @@ html, body {
   border: none;
   outline: none;
   width: 100%;
-  font-size: 14px;
+  font-size: 13px;
 }
 
-/* Main player */
+/* Home player (compact like Spotify) */
 #player {
   position: absolute;
-  top: 80px;
+  top: 90px;
   left: 16px;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 14px;
 }
 
+/* Smaller album */
 #album {
-  width: 120px;
-  height: 120px;
+  width: 96px;
+  height: 96px;
   background-image: url("ayuda.jpg");
   background-size: cover;
   background-position: center;
 }
 
+/* Controls */
 #controls {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 6px;
 }
 
+/* Smaller text */
 #trackName {
-  font-size: 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #000;
 }
 
+/* Smaller Spotify-like play button */
 #playButton {
-  width: 48px;
-  height: 48px;
-  font-size: 22px;
+  width: 36px;
+  height: 36px;
+  font-size: 16px;
   cursor: pointer;
-  background: #fff;
+  border-radius: 50%;
   border: 1px solid #000;
+  background: #fff;
+  line-height: 1;
 }
 
 /* Song name below */
 #songBelow {
   position: absolute;
-  top: 220px;
+  top: 200px;
   left: 16px;
-  font-size: 14px;
+  font-size: 12px;
+  color: #000;
 }
 
-/* Bottom bar */
+/* Bottom player (unchanged) */
 #bottomBar {
   position: fixed;
   bottom: 0;
@@ -128,9 +136,10 @@ html, body {
 }
 
 #bottomPlay {
-  width: 48px;
-  height: 48px;
-  font-size: 22px;
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+  border-radius: 50%;
   cursor: pointer;
   background: #fff;
   border: 1px solid #000;
