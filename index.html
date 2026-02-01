@@ -18,7 +18,6 @@
   <!-- HEADER -->
   <div id="header">
     <div id="logo">ganafy</div>
-
     <div id="searchBar">
       <div class="searchIcon"></div>
       <input type="text" placeholder="Search">
@@ -28,23 +27,21 @@
   <!-- SONG LIST -->
   <div id="songList">
 
-    <!-- SONG 1 (FIXED) -->
     <div class="songRow"
+      data-index="0"
       data-audio="music.mp3"
       data-title="MXRCVRY - AYUDA"
       data-image="ayuda.jpg">
-
       <img src="ayuda.jpg" class="songImg">
       <div class="songText">MXRCVRY - AYUDA</div>
       <button class="playBtn">▶</button>
     </div>
 
-    <!-- SONG 2 -->
     <div class="songRow"
+      data-index="1"
       data-audio="Tera Hone Laga Hoon-(Mr-Jat.in).mp3"
       data-title="Tera Hone Laga Hoon"
       data-image="1425x1425bb.jpg">
-
       <img src="1425x1425bb.jpg" class="songImg">
       <div class="songText">Tera Hone Laga Hoon</div>
       <button class="playBtn">▶</button>
@@ -52,26 +49,40 @@
 
   </div>
 
-  <!-- GLOBAL AUDIO -->
+  <!-- AUDIO -->
   <audio id="audio"></audio>
 
-  <!-- BOTTOM POPUP PLAYER -->
+  <!-- SPOTIFY STYLE BOTTOM PLAYER -->
   <div id="bottomBar">
 
-    <div id="bottomTop">
-      <button id="closePlayer">✕</button>
+    <!-- LEFT -->
+    <div class="player-left">
+      <img id="bottomAlbum">
+      <div id="bottomTrack"></div>
     </div>
 
-    <div id="bottomContent">
-      <img id="bottomAlbum">
-
-      <div id="bottomInfo">
-        <div id="bottomTrack"></div>
-        <div id="timeDisplay">0:00 / 0:00</div>
-        <input type="range" id="progress" min="0" max="100" value="0">
+    <!-- CENTER -->
+    <div class="player-center">
+      <div class="controls">
+        <button id="shuffle">⤮</button>
+        <button id="prev">⏮</button>
+        <button id="bottomPlay">▶</button>
+        <button id="next">⏭</button>
+        <button id="repeat">⟳</button>
       </div>
 
-      <button id="bottomPlay">▶</button>
+      <div class="timeline">
+        <span id="currentTime">0:00</span>
+        <input type="range" id="progress" min="0" max="100" value="0">
+        <span id="totalTime">0:00</span>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="player-right">
+      <button id="mini">▭</button>
+      <button id="fullscreen">⛶</button>
+      <button id="closePlayer">✕</button>
     </div>
 
   </div>
