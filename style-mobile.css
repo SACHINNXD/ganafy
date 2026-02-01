@@ -27,7 +27,7 @@ body {
   align-items: center;
   gap: 8px;
   border: 1px solid #000;
-  padding: 8px;
+  padding: 6px 10px;
 }
 
 #mobileSearch input {
@@ -36,30 +36,35 @@ body {
   width: 100%;
 }
 
-/* Content */
-#mobileContent {
-  margin-top: 24px;
+/* Spotify-like compact row (mobile only) */
+#mobileSongRow {
+  margin-top: 12px;
+  margin-left: 12px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
 }
 
 #mobileAlbum {
-  width: 220px;
-  height: 220px;
+  width: 44px;
+  height: 44px;
   object-fit: cover;
 }
 
-#mobileTrack {
-  font-size: 14px;
+#mobileText {
+  min-width: 140px;
 }
 
-/* Play button */
-.mobilePlay {
-  width: 64px;
-  height: 64px;
-  font-size: 28px;
+#mobileTitle {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Small play button */
+#playButton {
+  width: 28px;
+  height: 28px;
+  font-size: 14px;
   border-radius: 50%;
   border: 1px solid #000;
   background: #fff;
@@ -112,9 +117,9 @@ body {
 }
 
 #bottomPlay {
-  width: 44px;
-  height: 44px;
-  font-size: 20px;
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
   border-radius: 50%;
   border: 1px solid #000;
   background: #fff;
