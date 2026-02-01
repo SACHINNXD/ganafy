@@ -7,8 +7,15 @@
 </head>
 <body>
 
-  <!-- Logo -->
-  <div id="logo">ganafy</div>
+  <!-- Header -->
+  <div id="header">
+    <div id="logo">ganafy</div>
+
+    <div id="searchBar">
+      <span id="searchIcon">🔍</span>
+      <input type="text" placeholder="Search songs, artists">
+    </div>
+  </div>
 
   <!-- Main player -->
   <div id="player">
@@ -22,13 +29,18 @@
     <audio id="audio" src="music.mp3"></audio>
   </div>
 
+  <!-- Song name below -->
+  <div id="songBelow">MXRCVRY - AYUDA</div>
+
   <!-- Bottom popup bar -->
   <div id="bottomBar">
-    <img src="album.jpg" id="bottomAlbum">
+    <img src="ayuda.jpg" id="bottomAlbum">
+
     <div id="bottomInfo">
       <div id="bottomTrack">MXRCVRY - AYUDA</div>
       <input type="range" id="progress" value="0" min="0" max="100">
     </div>
+
     <button id="bottomPlay">❚❚</button>
   </div>
 
