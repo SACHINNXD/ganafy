@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
 
+  <!-- Redirect mobile users -->
   <script>
     if (/Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent)) {
       window.location.href = "home-mobile.html";
@@ -14,9 +15,10 @@
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- HEADER -->
   <div id="header">
     <div id="logo">ganafy</div>
+
     <div id="searchBar">
       <div class="searchIcon"></div>
       <input type="text" placeholder="Search">
@@ -24,45 +26,53 @@
   </div>
 
   <!-- SONG LIST -->
-  <div class="songList">
+  <div id="songList">
 
-    <!-- Song 1 -->
+    <!-- SONG 1 -->
     <div class="songRow"
       data-audio="music-ayuda.mp3"
       data-title="MXRCVRY - AYUDA"
       data-image="ayuda.jpg">
-      <img src="ayuda.jpg">
-      <span>MXRCVRY - AYUDA</span>
+
+      <img src="ayuda.jpg" class="songImg">
+      <div class="songText">MXRCVRY - AYUDA</div>
       <button class="playBtn">▶</button>
     </div>
 
-    <!-- Song 2 -->
+    <!-- SONG 2 -->
     <div class="songRow"
       data-audio="Tera Hone Laga Hoon-(Mr-Jat.in).mp3"
       data-title="Tera Hone Laga Hoon"
       data-image="1425x1425bb.jpg">
-      <img src="1425x1425bb.jpg">
-      <span>Tera Hone Laga Hoon</span>
+
+      <img src="1425x1425bb.jpg" class="songImg">
+      <div class="songText">Tera Hone Laga Hoon</div>
       <button class="playBtn">▶</button>
     </div>
 
   </div>
 
+  <!-- GLOBAL AUDIO -->
   <audio id="audio"></audio>
 
-  <!-- Bottom popup -->
+  <!-- BOTTOM POPUP PLAYER -->
   <div id="bottomBar">
+
     <div id="bottomTop">
       <button id="closePlayer">✕</button>
     </div>
+
     <div id="bottomContent">
       <img id="bottomAlbum">
+
       <div id="bottomInfo">
         <div id="bottomTrack"></div>
-        <input type="range" id="progress" min="0" max="100">
+        <input type="range" id="progress" min="0" max="100" value="0">
       </div>
+
       <button id="bottomPlay">▶</button>
     </div>
+
   </div>
 
   <script src="script.js"></script>
