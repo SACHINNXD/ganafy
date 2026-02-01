@@ -11,18 +11,24 @@ body {
 
 /* Header */
 #mobileHeader {
-  padding: 12px;
+  height: 56px;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  padding: 0 12px;
+  position: relative;
 }
 
 #mobileLogo {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
 }
 
+/* Centered search bar */
 #mobileSearch {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -36,10 +42,29 @@ body {
   width: 100%;
 }
 
-/* Spotify-like compact row (mobile only) */
+/* Custom icon */
+.searchIcon {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  position: relative;
+}
+
+.searchIcon::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 2px;
+  background: #000;
+  right: -5px;
+  bottom: -2px;
+  transform: rotate(45deg);
+}
+
+/* Song row */
 #mobileSongRow {
-  margin-top: 12px;
-  margin-left: 12px;
+  margin: 12px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -48,19 +73,13 @@ body {
 #mobileAlbum {
   width: 44px;
   height: 44px;
-  object-fit: cover;
-}
-
-#mobileText {
-  min-width: 140px;
 }
 
 #mobileTitle {
   font-size: 13px;
-  font-weight: 500;
+  flex: 1;
 }
 
-/* Small play button */
 #playButton {
   width: 28px;
   height: 28px;
@@ -70,7 +89,7 @@ body {
   background: #fff;
 }
 
-/* Bottom player */
+/* Bottom popup */
 #bottomBar {
   position: fixed;
   bottom: 0;
@@ -107,9 +126,6 @@ body {
 
 #bottomInfo {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
 }
 
 #progress {
