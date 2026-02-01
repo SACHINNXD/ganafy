@@ -10,7 +10,7 @@
   <!-- Logo -->
   <div id="logo">ganafy</div>
 
-  <!-- Music player -->
+  <!-- Main player -->
   <div id="player">
     <div id="album"></div>
 
@@ -20,6 +20,16 @@
     </div>
 
     <audio id="audio" src="music.mp3"></audio>
+  </div>
+
+  <!-- Bottom popup bar -->
+  <div id="bottomBar">
+    <img src="album.jpg" id="bottomAlbum">
+    <div id="bottomInfo">
+      <div id="bottomTrack">MXRCVRY - AYUDA</div>
+      <input type="range" id="progress" value="0" min="0" max="100">
+    </div>
+    <button id="bottomPlay">❚❚</button>
   </div>
 
   <script src="script.js"></script>
