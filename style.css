@@ -11,29 +11,53 @@ html, body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Logo */
-#logo {
+/* Header */
+#header {
   position: absolute;
   top: 16px;
   left: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+#logo {
   font-size: 24px;
   font-weight: 600;
+}
+
+/* Search bar */
+#searchBar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  border: 1px solid #000;
+  padding: 8px 12px;
+  gap: 8px;
+}
+
+#searchBar input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
 }
 
 /* Main player */
 #player {
   position: absolute;
-  top: 64px;
+  top: 80px;
   left: 16px;
   display: flex;
-  gap: 20px;
   align-items: center;
+  gap: 20px;
 }
 
 #album {
   width: 120px;
   height: 120px;
-  background-image: url("album.jpg");
+  background-image: url("ayuda.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -57,7 +81,16 @@ html, body {
   border: 1px solid #000;
 }
 
-/* Bottom popup bar */
+/* Song name below */
+#songBelow {
+  position: absolute;
+  top: 220px;
+  left: 16px;
+  font-size: 14px;
+  color: #000;
+}
+
+/* Bottom bar */
 #bottomBar {
   position: fixed;
   bottom: 0;
