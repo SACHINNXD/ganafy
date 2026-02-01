@@ -8,26 +8,29 @@
 </head>
 <body>
 
-  <!-- Top bar -->
+  <!-- Mobile header -->
   <header id="mobileHeader">
     <div id="mobileLogo">ganafy</div>
+
     <div id="mobileSearch">
       🔍 <input type="text" placeholder="Search">
     </div>
   </header>
 
-  <!-- Song card -->
-  <main id="mobileContent">
+  <!-- Compact left-aligned song row (MOBILE ONLY) -->
+  <div id="mobileSongRow">
     <img src="ayuda.jpg" id="mobileAlbum">
 
-    <div id="mobileTrack">MXRCVRY - AYUDA</div>
+    <div id="mobileText">
+      <div id="mobileTitle">MXRCVRY - AYUDA</div>
+    </div>
 
-    <button id="playButton" class="mobilePlay">▶</button>
+    <button id="playButton">▶</button>
+  </div>
 
-    <audio id="audio" src="music.mp3"></audio>
-  </main>
+  <audio id="audio" src="music.mp3"></audio>
 
-  <!-- Bottom player -->
+  <!-- Bottom popup player -->
   <div id="bottomBar">
     <div id="bottomTop">
       <button id="closePlayer">✕</button>
