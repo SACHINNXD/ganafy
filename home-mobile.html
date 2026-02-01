@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ganafy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style-mobile.css">
+</head>
+<body>
+
+  <!-- Top bar -->
+  <header id="mobileHeader">
+    <div id="mobileLogo">ganafy</div>
+    <div id="mobileSearch">
+      🔍 <input type="text" placeholder="Search">
+    </div>
+  </header>
+
+  <!-- Song card -->
+  <main id="mobileContent">
+    <img src="ayuda.jpg" id="mobileAlbum">
+
+    <div id="mobileTrack">MXRCVRY - AYUDA</div>
+
+    <button id="playButton" class="mobilePlay">▶</button>
+
+    <audio id="audio" src="music.mp3"></audio>
+  </main>
+
+  <!-- Bottom player -->
+  <div id="bottomBar">
+    <div id="bottomTop">
+      <button id="closePlayer">✕</button>
+    </div>
+
+    <div id="bottomContent">
+      <img src="ayuda.jpg" id="bottomAlbum">
+
+      <div id="bottomInfo">
+        <div id="bottomTrack">MXRCVRY - AYUDA</div>
+        <input type="range" id="progress" min="0" max="100" value="0">
+      </div>
+
+      <button id="bottomPlay">▶</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
