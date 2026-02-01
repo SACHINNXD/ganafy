@@ -13,28 +13,30 @@ html, body {
 
 /* Header */
 #header {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  right: 16px;
+  position: relative;
+  height: 64px;
   display: flex;
   align-items: center;
-  gap: 24px;
+  padding: 0 16px;
 }
 
+/* Logo */
 #logo {
   font-size: 24px;
   font-weight: 600;
 }
 
-/* Search bar */
+/* Centered short search bar */
 #searchBar {
-  flex: 1;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
   display: flex;
   align-items: center;
-  border: 1px solid #000;
-  padding: 8px 12px;
   gap: 8px;
+  border: 1px solid #000;
+  padding: 6px 10px;
 }
 
 #searchBar input {
@@ -87,7 +89,6 @@ html, body {
   top: 220px;
   left: 16px;
   font-size: 14px;
-  color: #000;
 }
 
 /* Bottom bar */
