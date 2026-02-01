@@ -20,12 +20,12 @@
     <div id="logo">ganafy</div>
 
     <div id="searchBar">
-      <span>🔍</span>
+      <div class="searchIcon"></div>
       <input type="text" placeholder="Search">
     </div>
   </div>
 
-  <!-- Home player -->
+  <!-- Desktop home player -->
   <div id="player">
     <div id="album"></div>
 
@@ -33,12 +33,9 @@
       <div id="trackName">MXRCVRY - AYUDA</div>
       <button id="playButton">▶</button>
     </div>
-
-    <audio id="audio" src="music.mp3"></audio>
   </div>
 
-  <!-- Song name below -->
-  <div id="songBelow">MXRCVRY - AYUDA</div>
+  <audio id="audio" src="music.mp3"></audio>
 
   <!-- Bottom popup player -->
   <div id="bottomBar">
@@ -51,7 +48,7 @@
 
       <div id="bottomInfo">
         <div id="bottomTrack">MXRCVRY - AYUDA</div>
-        <input type="range" id="progress" value="0" min="0" max="100">
+        <input type="range" id="progress" min="0" max="100" value="0">
       </div>
 
       <button id="bottomPlay">▶</button>
