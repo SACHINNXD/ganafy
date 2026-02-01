@@ -2,6 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+
+  <!-- Mobile redirect -->
+  <script>
+    if (/Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent)) {
+      window.location.href = "home-mobile.html";
+    }
+  </script>
+
   <title>ganafy</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -32,7 +40,7 @@
   <!-- Song name below -->
   <div id="songBelow">MXRCVRY - AYUDA</div>
 
-  <!-- Bottom popup bar -->
+  <!-- Bottom popup player -->
   <div id="bottomBar">
     <div id="bottomTop">
       <button id="closePlayer">✕</button>
