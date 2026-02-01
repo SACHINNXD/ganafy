@@ -32,10 +32,9 @@ const repeatBtn = document.getElementById("repeat");
 const miniBtn = document.getElementById("miniBtn");
 const fullscreenBtn = document.getElementById("fullscreenBtn");
 
-/* VOLUME (ADDED) */
+/* VOLUME */
 const volumeSlider = document.getElementById("volumeSlider");
 audio.volume = 1;
-
 volumeSlider.addEventListener("input", () => {
   audio.volume = volumeSlider.value / 100;
 });
@@ -85,91 +84,86 @@ function togglePlay() {
   audio.paused ? audio.play() : audio.pause();
 }
 
-bottomPlay.addEventListener("click", togglePlay);
-miniPlay.addEventListener("click", togglePlay);
-fsPlay.addEventListener("click", togglePlay);
+bottomPlay.onclick = togglePlay;
+miniPlay.onclick = togglePlay;
+fsPlay.onclick = togglePlay;
 
-audio.addEventListener("play", () => {
+audio.onplay = () => {
   bottomPlay.textContent = "❚❚";
   miniPlay.textContent = "❚❚";
   fsPlay.textContent = "❚❚";
-});
+};
 
-audio.addEventListener("pause", () => {
+audio.onpause = () => {
   bottomPlay.textContent = "▶";
   miniPlay.textContent = "▶";
   fsPlay.textContent = "▶";
-});
+};
 
 /* NEXT / PREVIOUS */
-nextBtn.addEventListener("click", () => {
+nextBtn.onclick = () => {
   currentIndex = shuffle
     ? Math.floor(Math.random() * songs.length)
     : (currentIndex + 1) % songs.length;
   loadSong(currentIndex);
-});
+};
 
-prevBtn.addEventListener("click", () => {
+prevBtn.onclick = () => {
   currentIndex = (currentIndex - 1 + songs.length) % songs.length;
   loadSong(currentIndex);
-});
+};
 
-shuffleBtn.addEventListener("click", () => shuffle = !shuffle);
-repeatBtn.addEventListener("click", () => repeat = !repeat);
+shuffleBtn.onclick = () => shuffle = !shuffle;
+repeatBtn.onclick = () => repeat = !repeat;
 
-/* TIME + SEEK */
-audio.addEventListener("timeupdate", () => {
+/* TIME */
+audio.ontimeupdate = () => {
   if (!audio.duration) return;
   progress.value = (audio.currentTime / audio.duration) * 100;
   currentTimeEl.textContent = formatTime(audio.currentTime);
   totalTimeEl.textContent = formatTime(audio.duration);
-});
+};
 
-progress.addEventListener("input", () => {
+progress.oninput = () => {
   audio.currentTime = (progress.value / 100) * audio.duration;
-});
+};
 
-audio.addEventListener("ended", () => {
+audio.onended = () => {
   repeat ? loadSong(currentIndex) : nextBtn.click();
-});
+};
 
 /* MINI TOGGLE */
-miniBtn.addEventListener("click", () => {
+miniBtn.onclick = () => {
   miniPlayer.style.display =
     miniPlayer.style.display === "block" ? "none" : "block";
-});
+};
 
-/* FULLSCREEN TOGGLE */
-fullscreenBtn.addEventListener("click", () => {
-  fullscreenPlayer.style.display = "flex";
-});
+/* FULLSCREEN */
+fullscreenBtn.onclick = () => fullscreenPlayer.style.display = "flex";
+exitFullscreen.onclick = () => fullscreenPlayer.style.display = "none";
 
-exitFullscreen.addEventListener("click", () => {
-  fullscreenPlayer.style.display = "none";
-});
-
-/* DRAG MINI PLAYER */
+/* DRAG MINI */
 let dragging = false;
-let offsetX = 0;
-let offsetY = 0;
+let dx = 0;
+let dy = 0;
 
-miniPlayer.addEventListener("mousedown", e => {
+miniPlayer.onmousedown = e => {
   dragging = true;
-  offsetX = e.offsetX;
-  offsetY = e.offsetY;
-});
+  dx = e.offsetX;
+  dy = e.offsetY;
+};
 
-document.addEventListener("mousemove", e => {
+document.onmousemove = e => {
   if (!dragging) return;
-  miniPlayer.style.left = e.pageX - offsetX + "px";
-  miniPlayer.style.top = e.pageY - offsetY + "px";
-});
+  miniPlayer.style.left = e.pageX - dx + "px";
+  miniPlayer.style.top = e.pageY - dy + "px";
+};
 
-document.addEventListener("mouseup", () => dragging = false);
+document.onmouseup = () => dragging = false;
 
-/* UTILITY */
-function formatTime(seconds) {
-  const m = Math.floor(seconds / 60);
-  const s = Math.floor(seconds % 60);
+/* UTIL */
+function formatTime(sec) {
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60);
   return m + ":" + String(s).padStart(2, "0");
 }
