@@ -1,6 +1,3 @@
-/* =========================
-   ELEMENT REFERENCES
-========================= */
 const audio = document.getElementById("audio");
 
 const playButton = document.getElementById("playButton");
@@ -12,107 +9,69 @@ const progress = document.getElementById("progress");
 
 const songName = "MXRCVRY - AYUDA";
 
-/* =========================
-   PLAY / PAUSE TOGGLE
-========================= */
+/* Toggle play */
 function togglePlay() {
-  // User explicitly plays again → allow popup
   localStorage.removeItem("ganafy_closed");
-
-  if (audio.paused) {
-    audio.play();
-  } else {
-    audio.pause();
-  }
+  audio.paused ? audio.play() : audio.pause();
 }
 
-/* Buttons exist on both pages */
-if (playButton) playButton.addEventListener("click", togglePlay);
-if (bottomPlay) bottomPlay.addEventListener("click", togglePlay);
+if (playButton) playButton.onclick = togglePlay;
+if (bottomPlay) bottomPlay.onclick = togglePlay;
 
-/* =========================
-   AUDIO EVENTS
-========================= */
-audio.addEventListener("play", () => {
+/* Sync UI */
+audio.onplay = () => {
   if (playButton) playButton.textContent = "❚❚";
   if (bottomPlay) bottomPlay.textContent = "❚❚";
-
   if (bottomBar) bottomBar.style.display = "flex";
-
   document.title = `ganafy | ${songName}`;
-
   localStorage.setItem("ganafy_playing", "true");
-});
+};
 
-audio.addEventListener("pause", () => {
+audio.onpause = () => {
   if (playButton) playButton.textContent = "▶";
   if (bottomPlay) bottomPlay.textContent = "▶";
-
   document.title = "ganafy";
-
   localStorage.setItem("ganafy_playing", "false");
-});
+};
 
-/* =========================
-   PROGRESS BAR
-========================= */
-audio.addEventListener("timeupdate", () => {
+/* Progress */
+audio.ontimeupdate = () => {
   if (!audio.duration) return;
-
-  if (progress) {
-    progress.value = (audio.currentTime / audio.duration) * 100;
-  }
-
+  if (progress) progress.value = (audio.currentTime / audio.duration) * 100;
   localStorage.setItem("ganafy_time", audio.currentTime);
-});
+};
 
 if (progress) {
-  progress.addEventListener("input", () => {
+  progress.oninput = () => {
     if (!audio.duration) return;
-
     audio.currentTime = (progress.value / 100) * audio.duration;
-    localStorage.setItem("ganafy_time", audio.currentTime);
-  });
+  };
 }
 
-/* =========================
-   CLOSE PLAYER (PERMANENT)
-========================= */
+/* Close popup permanently */
 if (closePlayer) {
-  closePlayer.addEventListener("click", () => {
+  closePlayer.onclick = () => {
     audio.pause();
     audio.currentTime = 0;
-
     if (bottomBar) bottomBar.style.display = "none";
-
-    if (playButton) playButton.textContent = "▶";
-    if (bottomPlay) bottomPlay.textContent = "▶";
-
-    document.title = "ganafy";
-
-    // Permanent close
     localStorage.setItem("ganafy_closed", "true");
     localStorage.removeItem("ganafy_time");
     localStorage.removeItem("ganafy_playing");
-  });
+    document.title = "ganafy";
+  };
 }
 
-/* =========================
-   RESTORE ON PAGE LOAD
-========================= */
-window.addEventListener("load", () => {
-  // If user closed player explicitly → never restore
+/* Restore */
+window.onload = () => {
   if (localStorage.getItem("ganafy_closed") === "true") return;
 
-  const savedTime = localStorage.getItem("ganafy_time");
-  const wasPlaying = localStorage.getItem("ganafy_playing");
+  const time = localStorage.getItem("ganafy_time");
+  const playing = localStorage.getItem("ganafy_playing");
 
-  if (savedTime !== null) {
-    audio.currentTime = parseFloat(savedTime);
+  if (time) {
+    audio.currentTime = parseFloat(time);
     if (bottomBar) bottomBar.style.display = "flex";
   }
 
-  if (wasPlaying === "true") {
-    audio.play();
-  }
-});
+  if (playing === "true") audio.play();
+};
