@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
 
+  <!-- Mobile redirect -->
   <script>
     if (/Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent)) {
       window.location.href = "home-mobile.html";
@@ -14,6 +15,7 @@
 </head>
 <body>
 
+<!-- ================= HEADER ================= -->
 <header id="header">
   <div id="logo">ganafy</div>
 
@@ -23,6 +25,7 @@
   </div>
 </header>
 
+<!-- ================= SONG LIST ================= -->
 <main id="songList">
 
   <div class="songRow"
@@ -47,16 +50,19 @@
 
 </main>
 
+<!-- ================= AUDIO ================= -->
 <audio id="audio"></audio>
 
 <!-- ================= BOTTOM PLAYER ================= -->
 <div id="bottomBar">
 
+  <!-- LEFT -->
   <div class="player-left">
     <img id="bottomAlbum">
     <div id="bottomTrack"></div>
   </div>
 
+  <!-- CENTER -->
   <div class="player-center">
 
     <div class="controls">
@@ -75,9 +81,10 @@
 
   </div>
 
-  <!-- RIGHT SIDE (ADDED VOLUME HERE) -->
+  <!-- RIGHT -->
   <div class="player-right">
 
+    <!-- VOLUME -->
     <div class="volumeControl">
       <span class="volumeIcon">🔊</span>
       <input type="range" id="volumeSlider" min="0" max="100" value="100">
@@ -89,7 +96,7 @@
 
 </div>
 
-<!-- MINI PLAYER -->
+<!-- ================= MINI PLAYER (FLOATING) ================= -->
 <div id="miniPlayer">
   <div class="miniCover">
     <img id="miniAlbum">
@@ -98,9 +105,10 @@
   <div id="miniTitle"></div>
 </div>
 
-<!-- FULLSCREEN PLAYER -->
+<!-- ================= FULLSCREEN PLAYER ================= -->
 <div id="fullscreenPlayer">
   <button id="exitFullscreen">✕</button>
+
   <img id="fsAlbum">
   <div id="fsTitle"></div>
 
