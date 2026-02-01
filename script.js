@@ -1,101 +1,135 @@
 const audio = document.getElementById("audio");
+
 const bottomBar = document.getElementById("bottomBar");
 const bottomAlbum = document.getElementById("bottomAlbum");
 const bottomTrack = document.getElementById("bottomTrack");
 const bottomPlay = document.getElementById("bottomPlay");
-const closePlayer = document.getElementById("closePlayer");
+
 const progress = document.getElementById("progress");
-const timeDisplay = document.getElementById("timeDisplay");
+const currentTimeEl = document.getElementById("currentTime");
+const totalTimeEl = document.getElementById("totalTime");
 
-let currentSong = null;
+const nextBtn = document.getElementById("next");
+const prevBtn = document.getElementById("prev");
+const shuffleBtn = document.getElementById("shuffle");
+const repeatBtn = document.getElementById("repeat");
+const fullscreenBtn = document.getElementById("fullscreen");
+const miniBtn = document.getElementById("mini");
+const closeBtn = document.getElementById("closePlayer");
 
-function formatTime(sec) {
-  const m = Math.floor(sec / 60);
-  const s = Math.floor(sec % 60);
-  return `${m}:${s.toString().padStart(2, "0")}`;
+const songRows = document.querySelectorAll(".songRow");
+
+const songs = Array.from(songRows).map(row => ({
+  src: row.dataset.audio,
+  title: row.dataset.title,
+  img: row.dataset.image
+}));
+
+let currentIndex = 0;
+let shuffle = false;
+let repeat = false;
+
+/* FORMAT TIME */
+function format(t) {
+  const m = Math.floor(t / 60);
+  const s = Math.floor(t % 60);
+  return `${m}:${s.toString().padStart(2,"0")}`;
 }
 
-/* CLICK SONG */
-document.querySelectorAll(".songRow").forEach(row => {
+/* LOAD SONG */
+function loadSong(index) {
+  const song = songs[index];
+  audio.src = song.src;
+  bottomAlbum.src = song.img;
+  bottomTrack.textContent = song.title;
+  audio.play();
+  bottomBar.style.display = "flex";
+
+  localStorage.setItem("ganafy_song_index", index);
+  localStorage.removeItem("ganafy_closed");
+}
+
+/* SONG CLICK */
+songRows.forEach(row => {
   row.addEventListener("click", () => {
-    const src = row.dataset.audio;
-    const title = row.dataset.title;
-    const img = row.dataset.image;
-
-    if (currentSong !== src) {
-      audio.src = src;
-      audio.currentTime = 0;
-      currentSong = src;
-    }
-
-    bottomAlbum.src = img;
-    bottomTrack.textContent = title;
-
-    audio.play();
-    bottomBar.style.display = "flex";
-
-    localStorage.setItem("ganafy_song", src);
-    localStorage.setItem("ganafy_title", title);
-    localStorage.setItem("ganafy_img", img);
-    localStorage.removeItem("ganafy_closed");
+    currentIndex = Number(row.dataset.index);
+    loadSong(currentIndex);
   });
 });
 
 /* PLAY / PAUSE */
-bottomPlay.addEventListener("click", () => {
+bottomPlay.onclick = () => {
   audio.paused ? audio.play() : audio.pause();
-});
+};
 
-/* UI SYNC */
-audio.addEventListener("play", () => {
-  bottomPlay.textContent = "❚❚";
-});
+audio.onplay = () => bottomPlay.textContent = "❚❚";
+audio.onpause = () => bottomPlay.textContent = "▶";
 
-audio.addEventListener("pause", () => {
-  bottomPlay.textContent = "▶";
-});
+/* NEXT / PREV */
+nextBtn.onclick = () => {
+  currentIndex = shuffle
+    ? Math.floor(Math.random() * songs.length)
+    : (currentIndex + 1) % songs.length;
+  loadSong(currentIndex);
+};
 
-/* TIME + PROGRESS */
-audio.addEventListener("timeupdate", () => {
+prevBtn.onclick = () => {
+  currentIndex = (currentIndex - 1 + songs.length) % songs.length;
+  loadSong(currentIndex);
+};
+
+/* SHUFFLE / REPEAT */
+shuffleBtn.onclick = () => shuffle = !shuffle;
+repeatBtn.onclick = () => repeat = !repeat;
+
+/* TIME UPDATE */
+audio.ontimeupdate = () => {
   if (!audio.duration) return;
 
   progress.value = (audio.currentTime / audio.duration) * 100;
-  timeDisplay.textContent =
-    `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+  currentTimeEl.textContent = format(audio.currentTime);
+  totalTimeEl.textContent = format(audio.duration);
 
   localStorage.setItem("ganafy_time", audio.currentTime);
-});
+};
 
 /* SEEK */
-progress.addEventListener("input", () => {
+progress.oninput = () => {
   audio.currentTime = (progress.value / 100) * audio.duration;
-});
+};
+
+/* END */
+audio.onended = () => {
+  repeat ? loadSong(currentIndex) : nextBtn.click();
+};
+
+/* MINI PLAYER */
+miniBtn.onclick = () => {
+  bottomBar.style.height = "50px";
+};
+
+/* FULLSCREEN */
+fullscreenBtn.onclick = () => {
+  document.documentElement.requestFullscreen();
+};
 
 /* CLOSE */
-closePlayer.addEventListener("click", () => {
+closeBtn.onclick = () => {
   audio.pause();
-  audio.currentTime = 0;
   bottomBar.style.display = "none";
-
   localStorage.setItem("ganafy_closed", "true");
-  localStorage.removeItem("ganafy_time");
-});
+};
 
 /* RESTORE */
-window.addEventListener("load", () => {
+window.onload = () => {
   if (localStorage.getItem("ganafy_closed") === "true") return;
 
-  const song = localStorage.getItem("ganafy_song");
-  const title = localStorage.getItem("ganafy_title");
-  const img = localStorage.getItem("ganafy_img");
+  const idx = localStorage.getItem("ganafy_song_index");
   const time = localStorage.getItem("ganafy_time");
 
-  if (!song) return;
-
-  audio.src = song;
-  bottomAlbum.src = img;
-  bottomTrack.textContent = title;
-  bottomBar.style.display = "flex";
-
-  if (time) audio.currentTime = parseFloat(time);
-});
+  if (idx !== null) {
+    currentIndex = Number(idx);
+    loadSong(currentIndex);
+    if (time) audio.currentTime = Number(time);
+  }
+};
