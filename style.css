@@ -9,7 +9,7 @@ body {
   background: #ffffff;
 }
 
-/* Header */
+/* HEADER */
 #header {
   height: 64px;
   display: flex;
@@ -23,7 +23,7 @@ body {
   font-weight: 600;
 }
 
-/* Search bar */
+/* SEARCH BAR */
 #searchBar {
   position: absolute;
   left: 50%;
@@ -42,7 +42,7 @@ body {
   width: 100%;
 }
 
-/* Custom search icon */
+/* CUSTOM SEARCH ICON */
 .searchIcon {
   width: 14px;
   height: 14px;
@@ -62,44 +62,38 @@ body {
   transform: rotate(45deg);
 }
 
-/* Player */
-#player {
-  margin-top: 20px;
-  margin-left: 16px;
+/* SONG LIST */
+#songList {
+  margin: 16px;
+}
+
+.songRow {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
-#album {
-  width: 96px;
-  height: 96px;
-  background-image: url("ayuda.jpg");
-  background-size: cover;
-  background-position: center;
+.songImg {
+  width: 44px;
+  height: 44px;
 }
 
-#controls {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-#trackName {
+.songText {
+  flex: 1;
   font-size: 13px;
 }
 
-#playButton {
-  width: 36px;
-  height: 36px;
-  font-size: 16px;
+.playBtn {
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   border: 1px solid #000;
   background: #fff;
   cursor: pointer;
 }
 
-/* Bottom popup */
+/* BOTTOM PLAYER */
 #bottomBar {
   position: fixed;
   bottom: 0;
@@ -120,6 +114,7 @@ body {
   background: none;
   border: none;
   font-size: 18px;
+  cursor: pointer;
 }
 
 #bottomContent {
@@ -139,6 +134,10 @@ body {
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+
+#bottomTrack {
+  font-size: 13px;
 }
 
 #progress {
