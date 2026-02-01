@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 
-  <!-- Redirect mobile users -->
+  <!-- Mobile redirect -->
   <script>
     if (/Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent)) {
       window.location.href = "home-mobile.html";
@@ -28,7 +28,6 @@
   <!-- SONG LIST -->
   <div id="songList">
 
-    <!-- SONG 1 -->
     <div class="songRow"
       data-audio="music-ayuda.mp3"
       data-title="MXRCVRY - AYUDA"
@@ -39,7 +38,6 @@
       <button class="playBtn">▶</button>
     </div>
 
-    <!-- SONG 2 -->
     <div class="songRow"
       data-audio="Tera Hone Laga Hoon-(Mr-Jat.in).mp3"
       data-title="Tera Hone Laga Hoon"
@@ -67,6 +65,7 @@
 
       <div id="bottomInfo">
         <div id="bottomTrack"></div>
+        <div id="timeDisplay">0:00 / 0:00</div>
         <input type="range" id="progress" min="0" max="100" value="0">
       </div>
 
