@@ -6,7 +6,7 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background: #ffffff;
+  background: #fff;
 }
 
 /* HEADER */
@@ -23,14 +23,13 @@ body {
   font-weight: 600;
 }
 
-/* SEARCH BAR */
+/* SEARCH */
 #searchBar {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   width: 280px;
   display: flex;
-  align-items: center;
   gap: 8px;
   border: 1px solid #000;
   padding: 6px 10px;
@@ -42,7 +41,6 @@ body {
   width: 100%;
 }
 
-/* SEARCH ICON */
 .searchIcon {
   width: 14px;
   height: 14px;
@@ -50,13 +48,12 @@ body {
   border-radius: 50%;
   position: relative;
 }
-
 .searchIcon::after {
   content: "";
-  position: absolute;
   width: 6px;
   height: 2px;
   background: #000;
+  position: absolute;
   right: -5px;
   bottom: -2px;
   transform: rotate(45deg);
@@ -71,15 +68,14 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 12px;
   padding: 8px;
   border-radius: 6px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform .15s, box-shadow .15s;
 }
 
 .songRow:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 12px rgba(0,0,0,0.25);
+  box-shadow: 0 0 14px rgba(0,0,0,.3);
 }
 
 .songImg {
@@ -105,56 +101,74 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background: #f5f5f5;
-  border-top: 1px solid #ccc;
+  height: 90px;
+  background: #000;
+  color: #fff;
   display: none;
-  flex-direction: column;
+  align-items: center;
+  padding: 0 16px;
+  gap: 24px;
 }
 
-#bottomTop {
-  display: flex;
-  justify-content: flex-end;
-  padding: 4px 8px;
-}
-
-#closePlayer {
-  background: none;
-  border: none;
-  font-size: 18px;
-}
-
-#bottomContent {
+/* LEFT */
+.player-left {
+  width: 25%;
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 8px 12px 12px;
 }
 
-#bottomAlbum {
-  width: 48px;
-  height: 48px;
+.player-left img {
+  width: 56px;
+  height: 56px;
 }
 
-#bottomInfo {
-  flex: 1;
+/* CENTER */
+.player-center {
+  width: 50%;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  align-items: center;
+  gap: 6px;
 }
 
-#timeDisplay {
-  font-size: 11px;
+.controls {
+  display: flex;
+  gap: 14px;
 }
 
-#progress {
+.controls button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+}
+
+.timeline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   width: 100%;
 }
 
-#bottomPlay {
-  width: 36px;
-  height: 36px;
-  font-size: 18px;
-  border-radius: 50%;
-  border: 1px solid #000;
-  background: #fff;
+.timeline span {
+  font-size: 12px;
+}
+
+#progress {
+  flex: 1;
+}
+
+/* RIGHT */
+.player-right {
+  width: 25%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.player-right button {
+  background: none;
+  border: none;
+  color: #fff;
 }
