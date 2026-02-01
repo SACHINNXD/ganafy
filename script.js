@@ -6,7 +6,9 @@ const bottomPlay = document.getElementById("bottomPlay");
 const bottomBar = document.getElementById("bottomBar");
 const progress = document.getElementById("progress");
 
-/* Play / Pause toggle */
+const songName = "MXRCVRY - AYUDA";
+
+/* Play / Pause */
 function togglePlay() {
   if (audio.paused) {
     audio.play();
@@ -15,32 +17,32 @@ function togglePlay() {
   }
 }
 
-/* Button clicks */
 playButton.addEventListener("click", togglePlay);
 bottomPlay.addEventListener("click", togglePlay);
 
-/* Sync UI when playing */
+/* On play */
 audio.addEventListener("play", () => {
   playButton.textContent = "❚❚";
   bottomPlay.textContent = "❚❚";
   bottomBar.style.display = "flex";
+  document.title = `ganafy | ${songName}`;
 });
 
-/* Sync UI when paused */
+/* On pause */
 audio.addEventListener("pause", () => {
   playButton.textContent = "▶";
   bottomPlay.textContent = "▶";
+  document.title = "ganafy";
 });
 
-/* Update progress bar */
+/* Progress update */
 audio.addEventListener("timeupdate", () => {
   if (audio.duration) {
-    const percent = (audio.currentTime / audio.duration) * 100;
-    progress.value = percent;
+    progress.value = (audio.currentTime / audio.duration) * 100;
   }
 });
 
-/* Seek when user drags bar */
+/* Seek */
 progress.addEventListener("input", () => {
   if (audio.duration) {
     audio.currentTime = (progress.value / 100) * audio.duration;
