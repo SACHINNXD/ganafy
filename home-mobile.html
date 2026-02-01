@@ -8,22 +8,26 @@
 </head>
 <body>
 
+  <!-- MOBILE HEADER -->
   <header id="mobileHeader">
     <div id="mobileLogo">ganafy</div>
+
     <div id="mobileSearch">
       <div class="searchIcon"></div>
       <input type="text" placeholder="Search">
     </div>
   </header>
 
-  <div class="songList">
+  <!-- SONG LIST -->
+  <div id="songList">
 
     <div class="songRow"
       data-audio="music-ayuda.mp3"
       data-title="MXRCVRY - AYUDA"
       data-image="ayuda.jpg">
-      <img src="ayuda.jpg">
-      <span>MXRCVRY - AYUDA</span>
+
+      <img src="ayuda.jpg" class="songImg">
+      <div class="songText">MXRCVRY - AYUDA</div>
       <button class="playBtn">▶</button>
     </div>
 
@@ -31,27 +35,35 @@
       data-audio="Tera Hone Laga Hoon-(Mr-Jat.in).mp3"
       data-title="Tera Hone Laga Hoon"
       data-image="1425x1425bb.jpg">
-      <img src="1425x1425bb.jpg">
-      <span>Tera Hone Laga Hoon</span>
+
+      <img src="1425x1425bb.jpg" class="songImg">
+      <div class="songText">Tera Hone Laga Hoon</div>
       <button class="playBtn">▶</button>
     </div>
 
   </div>
 
+  <!-- GLOBAL AUDIO -->
   <audio id="audio"></audio>
 
+  <!-- BOTTOM POPUP PLAYER -->
   <div id="bottomBar">
+
     <div id="bottomTop">
       <button id="closePlayer">✕</button>
     </div>
+
     <div id="bottomContent">
       <img id="bottomAlbum">
+
       <div id="bottomInfo">
         <div id="bottomTrack"></div>
-        <input type="range" id="progress" min="0" max="100">
+        <input type="range" id="progress" min="0" max="100" value="0">
       </div>
+
       <button id="bottomPlay">▶</button>
     </div>
+
   </div>
 
   <script src="script.js"></script>
