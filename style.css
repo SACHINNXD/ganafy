@@ -5,9 +5,61 @@
   box-sizing: border-box;
 }
 
+/* BODY */
 body {
   font-family: Arial, Helvetica, sans-serif;
   background: #ffffff;
+}
+
+/* HEADER */
+#header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  position: relative;
+}
+
+#logo {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* SEARCH */
+#searchBar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  display: flex;
+  gap: 8px;
+  border: 1px solid #000;
+  padding: 6px 10px;
+}
+
+#searchBar input {
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.searchIcon {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  position: relative;
+}
+
+.searchIcon::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 2px;
+  background: #000;
+  right: -5px;
+  bottom: -2px;
+  transform: rotate(45deg);
 }
 
 /* SONG LIST */
@@ -22,12 +74,12 @@ body {
   padding: 8px;
   border-radius: 6px;
   cursor: pointer;
-  transition: 0.15s;
+  transition: transform .15s, box-shadow .15s;
 }
 
 .songRow:hover {
-  box-shadow: 0 0 14px rgba(0,0,0,.3);
   transform: translateY(-2px);
+  box-shadow: 0 0 14px rgba(0,0,0,.3);
 }
 
 .songImg {
@@ -40,7 +92,7 @@ body {
   font-size: 13px;
 }
 
-/* ================= BOTTOM BAR ================= */
+/* BOTTOM PLAYER */
 #bottomBar {
   position: fixed;
   bottom: 0;
@@ -95,12 +147,12 @@ body {
   flex: 1;
 }
 
-/* ================= MINI PLAYER (SPOTIFY STYLE) ================= */
+/* MINI PLAYER */
 #miniPlayer {
   position: fixed;
   bottom: 120px;
   right: 24px;
-  width: 300px;
+  width: 280px;
   background: #181818;
   border-radius: 14px;
   padding: 12px;
@@ -109,7 +161,7 @@ body {
   cursor: move;
 }
 
-.miniArtWrapper {
+.miniCover {
   position: relative;
 }
 
@@ -118,7 +170,7 @@ body {
   border-radius: 10px;
 }
 
-#miniOverlayPlay {
+#miniPlay {
   position: absolute;
   inset: 0;
   margin: auto;
@@ -127,17 +179,17 @@ body {
   border-radius: 50%;
   background: rgba(0,0,0,.6);
   color: #fff;
-  font-size: 24px;
   border: none;
+  font-size: 24px;
 }
 
-.miniMeta {
+#miniTitle {
   margin-top: 10px;
   color: #fff;
   font-size: 14px;
 }
 
-/* ================= FULLSCREEN PLAYER ================= */
+/* FULLSCREEN */
 #fullscreenPlayer {
   position: fixed;
   inset: 0;
@@ -146,8 +198,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 3000;
   color: #fff;
+  z-index: 3000;
 }
 
 #exitFullscreen {
