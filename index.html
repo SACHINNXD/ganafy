@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
 
-  <!-- mobile redirect -->
   <script>
     if (/Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent)) {
       window.location.href = "home-mobile.html";
@@ -15,7 +14,6 @@
 </head>
 <body>
 
-<!-- ================= HEADER ================= -->
 <header id="header">
   <div id="logo">ganafy</div>
 
@@ -25,7 +23,6 @@
   </div>
 </header>
 
-<!-- ================= SONG LIST ================= -->
 <main id="songList">
 
   <div class="songRow"
@@ -33,7 +30,6 @@
        data-audio="music.mp3"
        data-title="MXRCVRY - AYUDA"
        data-image="ayuda.jpg">
-
     <img src="ayuda.jpg" class="songImg">
     <div class="songText">MXRCVRY - AYUDA</div>
     <button class="playBtn">▶</button>
@@ -44,7 +40,6 @@
        data-audio="Tera Hone Laga Hoon-(Mr-Jat.in).mp3"
        data-title="Tera Hone Laga Hoon"
        data-image="1425x1425bb.jpg">
-
     <img src="1425x1425bb.jpg" class="songImg">
     <div class="songText">Tera Hone Laga Hoon</div>
     <button class="playBtn">▶</button>
@@ -52,19 +47,16 @@
 
 </main>
 
-<!-- ================= AUDIO ================= -->
 <audio id="audio"></audio>
 
-<!-- ================= BOTTOM PLAYER (ORIGINAL + EXTENDED) ================= -->
+<!-- ================= BOTTOM PLAYER ================= -->
 <div id="bottomBar">
 
-  <!-- LEFT -->
   <div class="player-left">
     <img id="bottomAlbum">
     <div id="bottomTrack"></div>
   </div>
 
-  <!-- CENTER -->
   <div class="player-center">
 
     <div class="controls">
@@ -83,15 +75,21 @@
 
   </div>
 
-  <!-- RIGHT -->
+  <!-- RIGHT SIDE (ADDED VOLUME HERE) -->
   <div class="player-right">
+
+    <div class="volumeControl">
+      <span class="volumeIcon">🔊</span>
+      <input type="range" id="volumeSlider" min="0" max="100" value="100">
+    </div>
+
     <button id="miniBtn">▢</button>
     <button id="fullscreenBtn">⛶</button>
   </div>
 
 </div>
 
-<!-- ================= MINI PLAYER (ADDED, FLOATING) ================= -->
+<!-- MINI PLAYER -->
 <div id="miniPlayer">
   <div class="miniCover">
     <img id="miniAlbum">
@@ -100,10 +98,9 @@
   <div id="miniTitle"></div>
 </div>
 
-<!-- ================= FULLSCREEN PLAYER (ADDED) ================= -->
+<!-- FULLSCREEN PLAYER -->
 <div id="fullscreenPlayer">
   <button id="exitFullscreen">✕</button>
-
   <img id="fsAlbum">
   <div id="fsTitle"></div>
 
