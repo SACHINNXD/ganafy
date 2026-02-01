@@ -14,6 +14,7 @@
 </head>
 <body>
 
+<!-- HEADER -->
 <div id="header">
   <div id="logo">ganafy</div>
   <div id="searchBar">
@@ -22,7 +23,9 @@
   </div>
 </div>
 
+<!-- SONG LIST -->
 <div id="songList">
+
   <div class="songRow" data-index="0" data-audio="music.mp3" data-title="MXRCVRY - AYUDA" data-image="ayuda.jpg">
     <img src="ayuda.jpg" class="songImg">
     <div class="songText">MXRCVRY - AYUDA</div>
@@ -34,12 +37,14 @@
     <div class="songText">Tera Hone Laga Hoon</div>
     <button class="playBtn">▶</button>
   </div>
+
 </div>
 
 <audio id="audio"></audio>
 
-<!-- ================= BOTTOM PLAYER ================= -->
+<!-- ================= BOTTOM PLAYER (ALWAYS STAYS) ================= -->
 <div id="bottomBar">
+
   <div class="player-left">
     <img id="bottomAlbum">
     <div id="bottomTrack"></div>
@@ -62,24 +67,29 @@
   </div>
 
   <div class="player-right">
-    <button id="mini">▭</button>
+    <button id="mini">▢</button>
     <button id="fullscreen">⛶</button>
-    <button id="closePlayer">✕</button>
+  </div>
+
+</div>
+
+<!-- ================= SPOTIFY-STYLE MINI PLAYER ================= -->
+<div id="miniPlayer">
+  <div class="miniArtWrapper">
+    <img id="miniAlbum">
+    <button id="miniOverlayPlay">▶</button>
+  </div>
+  <div class="miniMeta">
+    <div id="miniTitle"></div>
   </div>
 </div>
 
-<!-- ================= MINI PLAYER (ADDED) ================= -->
-<div id="miniPlayer">
-  <img id="miniAlbum">
-  <div id="miniTitle"></div>
-  <button id="miniPlay">▶</button>
-</div>
-
-<!-- ================= FULLSCREEN PLAYER (ADDED) ================= -->
+<!-- ================= FULLSCREEN PLAYER ================= -->
 <div id="fullscreenPlayer">
   <button id="exitFullscreen">✕</button>
   <img id="fsAlbum">
   <div id="fsTitle"></div>
+
   <div class="fsControls">
     <button id="fsPrev">⏮</button>
     <button id="fsPlay">▶</button>
