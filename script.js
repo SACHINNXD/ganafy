@@ -16,7 +16,7 @@ let currentIndex = 0;
 let shuffle = false;
 let repeat = false;
 
-/* BOTTOM PLAYER ELEMENTS */
+/* BOTTOM PLAYER */
 const bottomBar = document.getElementById("bottomBar");
 const bottomAlbum = document.getElementById("bottomAlbum");
 const bottomTrack = document.getElementById("bottomTrack");
@@ -32,13 +32,21 @@ const repeatBtn = document.getElementById("repeat");
 const miniBtn = document.getElementById("miniBtn");
 const fullscreenBtn = document.getElementById("fullscreenBtn");
 
+/* VOLUME (ADDED) */
+const volumeSlider = document.getElementById("volumeSlider");
+audio.volume = 1;
+
+volumeSlider.addEventListener("input", () => {
+  audio.volume = volumeSlider.value / 100;
+});
+
 /* MINI PLAYER */
 const miniPlayer = document.getElementById("miniPlayer");
 const miniAlbum = document.getElementById("miniAlbum");
 const miniTitle = document.getElementById("miniTitle");
 const miniPlay = document.getElementById("miniPlay");
 
-/* FULLSCREEN PLAYER */
+/* FULLSCREEN */
 const fullscreenPlayer = document.getElementById("fullscreenPlayer");
 const fsAlbum = document.getElementById("fsAlbum");
 const fsTitle = document.getElementById("fsTitle");
@@ -50,7 +58,6 @@ const exitFullscreen = document.getElementById("exitFullscreen");
 /* LOAD SONG */
 function loadSong(index) {
   const song = songs[index];
-
   audio.src = song.src;
 
   bottomAlbum.src = song.img;
@@ -75,11 +82,7 @@ songRows.forEach(row => {
 
 /* PLAY / PAUSE */
 function togglePlay() {
-  if (audio.paused) {
-    audio.play();
-  } else {
-    audio.pause();
-  }
+  audio.paused ? audio.play() : audio.pause();
 }
 
 bottomPlay.addEventListener("click", togglePlay);
@@ -100,11 +103,9 @@ audio.addEventListener("pause", () => {
 
 /* NEXT / PREVIOUS */
 nextBtn.addEventListener("click", () => {
-  if (shuffle) {
-    currentIndex = Math.floor(Math.random() * songs.length);
-  } else {
-    currentIndex = (currentIndex + 1) % songs.length;
-  }
+  currentIndex = shuffle
+    ? Math.floor(Math.random() * songs.length)
+    : (currentIndex + 1) % songs.length;
   loadSong(currentIndex);
 });
 
@@ -119,7 +120,6 @@ repeatBtn.addEventListener("click", () => repeat = !repeat);
 /* TIME + SEEK */
 audio.addEventListener("timeupdate", () => {
   if (!audio.duration) return;
-
   progress.value = (audio.currentTime / audio.duration) * 100;
   currentTimeEl.textContent = formatTime(audio.currentTime);
   totalTimeEl.textContent = formatTime(audio.duration);
@@ -130,14 +130,10 @@ progress.addEventListener("input", () => {
 });
 
 audio.addEventListener("ended", () => {
-  if (repeat) {
-    loadSong(currentIndex);
-  } else {
-    nextBtn.click();
-  }
+  repeat ? loadSong(currentIndex) : nextBtn.click();
 });
 
-/* MINI TOGGLE (BOTTOM BAR STAYS) */
+/* MINI TOGGLE */
 miniBtn.addEventListener("click", () => {
   miniPlayer.style.display =
     miniPlayer.style.display === "block" ? "none" : "block";
